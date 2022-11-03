@@ -1,0 +1,8 @@
+name: deepicedrainpipe
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - icepyx=0.6.4
+  - jupyterlab=3.5.0
+  - python=3.9
