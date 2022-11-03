@@ -4,5 +4,6 @@ channels:
   - nodefaults
 dependencies:
   - icepyx=0.6.4
+  - jupyter-book=0.13.1
   - jupyterlab=3.5.0
   - python=3.9

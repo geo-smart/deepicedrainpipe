@@ -1,0 +1,86 @@
+# https://jupyterbook.org/en/stable/publish/gh-pages.html#automatically-host-your-book-with-github-actions
+name: deploy-book
+
+# Only run this when the main branch changes
+on:
+  # Uncomment the 'pull_request' line below to manually re-build Jupyter Book
+  # pull_request:
+  push:
+    branches:
+      - main
+    # If your git repository has the Jupyter Book within some-subfolder next to
+    # unrelated files, you can make this run only if a file within that specific
+    # folder has been modified.
+    paths:
+      - '.github/workflows/deploy-book.yml'
+      - 'book/**'
+
+# Allow one concurrent deployment
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  # This job installs dependencies, builds the book, and pushes it to `gh-pages`
+  build-book:
+    runs-on: ubuntu-22.04
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      # Checkout current git repository
+      - name: Checkout
+        uses: actions/checkout@93ea575cb5d8a053eaa0ac8fa3b40d7e05a33cc8
+
+      # Enable GitHub Pages and extract various metadata about a site
+      - name: Setup Pages
+        uses: actions/configure-pages@d875fa8dc18209f310fe6999f4cfbc96ee372c2b
+
+      # Install Mambaforge with conda-forge dependencies
+      - name: Setup Mambaforge
+        uses: conda-incubator/setup-miniconda@35d1405e78aa3f784fe3ce9a2eb378d5eeb62169
+        with:
+          activate-environment: deepicedrainpipe
+          environment-file: environment.yml
+          python-version: "3.9"
+          channels: conda-forge
+          channel-priority: strict
+          miniforge-version: latest
+          miniforge-variant: Mambaforge
+          mamba-version: "*"
+          use-mamba: true
+
+      # Show installed pkg information for postmortem diagnostic
+      - name: List installed packages
+        run: mamba list
+
+      # Build the Jupyter book
+      - name: Build the book
+        run: jupyter-book build book/
+
+      # Upload the built HTML to GitHub Artifacts
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@a597aecd27af1cf14095ccaa29169358e3d91e28
+        with:
+          path: book/_build/html
+
+  # This job downloads the built HTML artifacts and deploys the webpage
+  deploy-pages:
+    runs-on: ubuntu-22.04
+    # Add a dependency to the build job
+    needs: build-book
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # Push the book's HTML to github-pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@69a62cdfa4c32e0d925268597986261876cac577

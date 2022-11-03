@@ -1,0 +1,13 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/en/stable/structure/toc.html
+
+format: jb-book
+root: intro
+parts:
+- caption: Details
+  chapters:
+    - title: GeoSMART materials
+      url: https://geo-smart.github.io
+- caption: Tutorials
+  chapters:
+    - file: markdown
