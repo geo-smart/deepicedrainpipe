@@ -3,5 +3,11 @@
 
 format: jb-book
 root: intro
-chapters:
-- file: markdown
+parts:
+- caption: Details
+  chapters:
+    - title: GeoSMART materials
+      url: https://geo-smart.github.io
+- caption: Tutorials
+  chapters:
+    - file: markdown
