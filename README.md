@@ -1,5 +1,7 @@
 # DeepIceDrainPipe
 
+[![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://geo-smart.github.io/deepicedrainpipe)
+
 Machine Learning data pipeline and Jupyter Book for the
 [DeepIceDrain](https://github.com/weiji14/deepicedrain) project.
 
