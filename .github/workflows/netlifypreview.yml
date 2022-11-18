@@ -1,6 +1,8 @@
 name: NetlifyPreview
 
 on:
+  # Uncomment the 'pull_request' line below to manually re-build Jupyter Book
+  pull_request:
   pull_request_target:
     types: [labeled, synchronize]
 
