@@ -30,6 +30,8 @@ repository:
   path_to_book: book  # Optional path to your book, relative to the repository root
   branch: main  # Which branch of the repository should be used when creating links (optional)
 
+only_build_toc_files: true
+
 # Add GitHub buttons to your book
 # See https://jupyterbook.org/customize/config.html#add-a-link-to-your-repository
 html:
@@ -45,3 +47,8 @@ sphinx:
   config:
     bibtex_reference_style: author_year
     html_show_copyright: false
+    # https://jupyterbook.org/en/stable/file-types/jupytext.html
+    nb_custom_formats:
+      .py:
+        - jupytext.reads
+        - fmt: py:percent
