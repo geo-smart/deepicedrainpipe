@@ -7,3 +7,4 @@ dependencies:
   - jupyter-book=0.13.1
   - jupyterlab=3.5.0
   - python=3.9
+  - xarray-datatree=0.0.9
