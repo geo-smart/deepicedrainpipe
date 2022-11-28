@@ -6,8 +6,10 @@ root: intro
 parts:
 - caption: Details
   chapters:
-    - title: GeoSMART materials
-      url: https://geo-smart.github.io
+  - title: GeoSMART materials
+    url: https://geo-smart.github.io
 - caption: Tutorials
   chapters:
-    - file: markdown
+  - title: 🪄 Pre-processing ICESat-2 Land ice height time-series
+    file: 01_prep_land_ice_height_time-series
+  - file: markdown
