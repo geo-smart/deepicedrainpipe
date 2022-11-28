@@ -99,14 +99,22 @@ ds
 #
 # For ATL11, the 6 lasers have been combined into 3 pair tracks (pt1, pt2, pt3).
 # To read the nested data structure, we can either loop over each of these groups,
-# or use something like [`datatree.open_datatree`](https://xarray-datatree.readthedocs.io/en/latest/generated/datatree.open_datatree.html).
+# and/or use something like [`datatree.open_datatree`](https://xarray-datatree.readthedocs.io/en/latest/generated/datatree.open_datatree.html).
+#
+# References:
+# - https://medium.com/pangeo/easy-ipcc-part-1-multi-model-datatree-469b87cf9114
 
 # %%
-# TODO, fix the ValueError: malformed variable poly_coeffs has mixing of labeled and unlabeled dimensions.
 with fs_s3.open(
     path="s3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5"
 ) as h5file:
-    is2dt = datatree.open_datatree(h5file, engine="h5netcdf", phony_dims="access")
-is2dt
+    pair_track_dict = {}
+    for pair_track in ["pt1", "pt2", "pt3"]:
+        h5file.seek(0)  # https://github.com/pydata/xarray/pull/7304
+        pair_track_dict[pair_track] = xr.open_dataset(
+            filename_or_obj=h5file, engine="h5netcdf", group=pair_track
+        )
+    dt = datatree.DataTree.from_dict(d=pair_track_dict)
+dt
 
 # %%
