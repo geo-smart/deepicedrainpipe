@@ -1,4 +1,4 @@
-# Table of content
+# Table of contents
 # Learn more at https://jupyterbook.org/customize/toc.html
 root: intro
 format: jb-book
@@ -10,15 +10,15 @@ parts:
     - title: Project Pythia Foundations
       url: https://foundations.projectpythia.org/landing-page.html
     - title: About Use Case Library
-      url: about
+      file: chapters/about
 
 - caption: Chapter One
   chapters:
-    - file: explanation
+    - file: chapters/explanation
 
 - caption: Chapter Two
   chapters:
-    - file: example
+    - file: chapters/example
 
 - caption: Reference
   chapters:
