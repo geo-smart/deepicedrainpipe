@@ -24,6 +24,10 @@ parts:
   chapters:
     - file: chapters/troubleshooting
 
+- caption: Chapter Four
+  chapters:
+    - file: chapters/discussion
+
 - caption: Reference
   chapters:
     - file: reference/glossary
