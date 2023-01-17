@@ -20,6 +20,10 @@ parts:
   chapters:
     - file: chapters/example
 
+- caption: Chapter Three
+  chapters:
+    - file: chapters/troubleshooting
+
 - caption: Reference
   chapters:
     - file: reference/glossary
