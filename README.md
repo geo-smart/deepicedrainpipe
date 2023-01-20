@@ -2,6 +2,7 @@
 
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://geo-smart.github.io/deepicedrainpipe)
 [![Deploy Book Status](https://github.com/geo-smart/deepicedrainpipe/actions/workflows/deploy-book.yml/badge.svg)](https://github.com/geo-smart/deepicedrainpipe/actions/workflows/deploy-book.yml)
+[![GeoSMART Use Case](./book/img/use_case_badge.svg)](https://geo-smart.github.io/usecases)
 
 Machine Learning data pipeline and Jupyter Book for the
 [DeepIceDrain](https://github.com/weiji14/deepicedrain) project.
