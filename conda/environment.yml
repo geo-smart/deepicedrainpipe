@@ -1,8 +1,7 @@
-# Edit this file to add dependencies to environment,
-# Then run `./lock-environment.sh` to generate reproducible lock files
+# `conda env create --name geosmart --file=environment.yml`
+# `conda activate geosmart`
+# `conda env update --file environment.yml --prune`
 
-# !!! If you are developing the website locally use the existing lock files
-# for your platform (`conda create --name hackweek --file conda-osx-64.lock`)
 name: geosmart
 channels:
   - conda-forge
@@ -11,6 +10,5 @@ dependencies:
   - sphinxcontrib-bibtex
   - jupyter-book=0.13
   - jupytext
-platforms:
-  - linux-64
-  - osx-64
+  - plotly
+  - pandas

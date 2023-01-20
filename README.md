@@ -6,4 +6,4 @@
 [![GeoSMART Use Case](./book/img/use_case_badge.svg)](https://geo-smart.github.io/usecases)
 
 This repository stores a skeleton of a GeoSMART use case book.<br>
-Clone or fork this repo to get started. If cloning, follow the extra steps described in the book to set up CI/CD with github actions and github pages.
+Click "use as template" to get started.
