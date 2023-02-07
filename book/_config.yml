@@ -74,4 +74,3 @@ sphinx:
       .py:
         - jupytext.reads
         - fmt: py:percent
-
