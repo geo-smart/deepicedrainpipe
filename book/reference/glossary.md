@@ -61,5 +61,12 @@
 
 ## Topical (Use Case Specific)
 ```{glossary}
-< TODO: Fill Out >
+[basal slip](https://jupyterlab.readthedocs.io)
+  JupyterLab is the next-generation web-based user interface for Project Jupyter
+  intended to replace the JupyterNotebook interface.
+
+[subglacial water](https://jupyterlab.readthedocs.io)
+  JupyterLab is the next-generation web-based user interface for Project Jupyter
+  intended to replace the JupyterNotebook interface.
+
 ```
