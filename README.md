@@ -28,6 +28,6 @@ Requires [CryoCloud user account](https://book.cryointhecloud.com/content/Gettin
 
 ## Deliverables
 
-- [ ] Pre-processing of ICESat-2 ATL11 data to cloud-optimized format - [@wsauthoff](https://github.com/wsauthoff)
-- [ ] Jupyter Book website design with ICESat-2 data access tutorials - [@JessicaS11](https://github.com/JessicaS11)
-- [ ] Development of machine learning pipeline - [@weiji14](https://github.com/weiji14)
+- [ ] [Pre-processing of ICESat-2 ATL11 data to cloud-optimized format](https://github.com/geo-smart/deepicedrainpipe/issues/3) - [@wsauthoff](https://github.com/wsauthoff)
+- [ ] [Jupyter Book website design with ICESat-2 data access tutorials](https://github.com/geo-smart/deepicedrainpipe/issues/4) - [@JessicaS11](https://github.com/JessicaS11)
+- [ ] [Development of machine learning pipeline](https://github.com/geo-smart/deepicedrainpipe/issues/5) - [@weiji14](https://github.com/weiji14)
