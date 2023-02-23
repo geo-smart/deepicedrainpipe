@@ -61,12 +61,19 @@
 
 ## Topical (Use Case Specific)
 ```{glossary}
-[basal slip](https://jupyterlab.readthedocs.io)
-  JupyterLab is the next-generation web-based user interface for Project Jupyter
-  intended to replace the JupyterNotebook interface.
+[basal slip](https://en.wikipedia.org/wiki/Basal_sliding)
+  Basal slip or sliding is the act of a glacier sliding over the bed due to meltwater 
+  under the ice acting as a lubricant. This movement very much depends on the 
+  temperature of the area, the slope of the glacier, the bed roughness, the amount of 
+  meltwater from the glacier, and the glacier's size. 
 
-[subglacial water](https://jupyterlab.readthedocs.io)
-  JupyterLab is the next-generation web-based user interface for Project Jupyter
-  intended to replace the JupyterNotebook interface.
+[subglacial water/lakes](https://en.wikipedia.org/wiki/Subglacial_lake)
+ A subglacial lake is a lake that is found under a glacier, typically beneath an ice
+ cap or ice sheet. Subglacial lakes form at the boundary between ice and the 
+ underlying bedrock, where gravitational pressure decreases the pressure melting
+ point of ice.[1][2] Over time, the overlying ice gradually melts at a rate of a few
+ millimeters per year.[3] Meltwater flows from regions of high to low hydraulic
+ pressure under the ice and pools, creating a body of liquid water that can be
+ isolated from the external environment for millions of years.
 
 ```
