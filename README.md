@@ -1,4 +1,5 @@
 # DeepIceDrainPipe
+## Cloud optimization of point cloud data and machine learning identification of active subglacial lakes
 
 [![Jupyter Book Badge](https://jupyterbook.org/badge.svg)](https://geo-smart.github.io/deepicedrainpipe)
 [![Deploy Book Status](https://github.com/geo-smart/deepicedrainpipe/actions/workflows/deploy-book.yml/badge.svg)](https://github.com/geo-smart/deepicedrainpipe/actions/workflows/deploy-book.yml)
