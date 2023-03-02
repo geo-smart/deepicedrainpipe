@@ -27,7 +27,8 @@ parts:
 
 - caption: Chapter Four
   chapters:
-    - file: chapters/development
+    - title: Model Development and Parameter Tuning
+      file: chapters/04_dbscan
 
 - caption: Chapter Five
   chapters:
