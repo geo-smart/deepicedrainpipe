@@ -59,8 +59,8 @@
 
 # %%
 import datatree
-import icepyx
-import s3fs
+import earthaccess
+import icepyx as ipx
 import xarray as xr
 
 # %% [markdown]
@@ -96,15 +96,20 @@ xr.show_versions()
 # First we must let icepyx know where (and when) we would like data from.
 
 short_name = 'ATL11'  # The data product we would like to query
-spatial_extent = [-85.0511287, -60.0, -180.0, 180.0] # bounding box for Antarctica
+spatial_extent = [-180.0, -85.0, 180.0, -60.0] # bounding box for Antarctica
 date_range = ['2018-09-15','2023-05-15'] # entire satellite record
 # %%
 # Setup the Query object
 region = ipx.Query(short_name, spatial_extent, date_range)
 # %%
+region.visualize_spatial_extent()
+
+# %%
 # Get the granule IDs and cloud access urls (note that due to some missing ICESat-2 product metadata, icepyx is still working to provide s3 urls for some products)
 gran_ids = region.avail_granules(ids=True, cloud=True)
 print(gran_ids)
+
+# NOTE: currently ATL11 s3ID generation isn't implemented. This is currently being implemented in icepyx.
 
 # %%
 # Authenicate using your NASA Earth Data login credentials; enter your user id and password when prompted
