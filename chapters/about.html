@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Motivation (Science or Utility)" href="motivation.html" />
-    <link rel="prev" title="Welcome to your Jupyter Book" href="../intro.html" />
+    <link rel="prev" title="Welcome to the GeoSMART Jupyter Book!" href="../intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -501,12 +501,46 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-overview">
+   General Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing-content">
+   Contributing Content
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#technical-details">
+   Technical Details
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -518,6 +552,29 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#general-overview">
+   General Overview
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing-content">
+   Contributing Content
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#technical-details">
+   Technical Details
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -527,11 +584,31 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="about-the-geosmart-use-case-library">
 <h1>About the GeoSMART Use Case Library<a class="headerlink" href="#about-the-geosmart-use-case-library" title="Permalink to this headline">#</a></h1>
-<p>This book was created for the <strong>GeoS</strong>cience <strong>MA</strong>chine Learning <strong>R</strong>esources and <strong>T</strong>raining (GeoSMART) framework.
-GeoSMART is an educational pathway that provides a foundation in open-source scientific ecosystems and progresses through general ML theory, toolkits and deployment on Cloud computing.
-Books in the library can be identified by the badge:</p>
+<section id="general-overview">
+<h2>General Overview<a class="headerlink" href="#general-overview" title="Permalink to this headline">#</a></h2>
+<p>Explain this family of books, link to others, explain how to contribute and purpose. Books in the library can be identified by the badge:</p>
 <p><a class="reference external" href="https://geo-smart.github.io/usecases"><img alt="GeoSMART Use Case" src="../_images/use_case_badge.svg" /></a></p>
-<p>More information on contributing your own use case can be found in the <a class="reference external" href="https://geo-smart.github.io/use_case_template/intro.html">GeoSMART Jupyter Book Use Case template</a></p>
+</section>
+<section id="contributing-content">
+<h2>Contributing Content<a class="headerlink" href="#contributing-content" title="Permalink to this headline">#</a></h2>
+<p>Tutorial content can be integrated into jupyterbooks in one of two ways:</p>
+<ul class="simple">
+<li><p>Do it yourself (use this template book and add your content)</p></li>
+<li><p>Provide use your content (preferably in a github repo) and we will integrate it</p></li>
+</ul>
+<p>The goal is to provide executable code on some platform. The contributor can choose between:</p>
+<ul class="simple">
+<li><p>Binder</p></li>
+<li><p>Google Colab</p></li>
+<li><p>Free AWS (smaller cloud-based examples)
+If none of the above options work for you, please contact us directly to discuss further.</p></li>
+</ul>
+</section>
+<section id="technical-details">
+<h2>Technical Details<a class="headerlink" href="#technical-details" title="Permalink to this headline">#</a></h2>
+<p>Creating a use case book can either be done by navigating use case template repository and clicking the “use as template” button.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">.github</span></code> folder already contains the github actions that will handle CI/CD deployment to github pages. There is no need to create a gh-pages branch, the first run of the github actions should handle that automatically.</p>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -565,7 +642,7 @@ Books in the library can be identified by the badge:</p>
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Welcome to your Jupyter Book</p>
+            <p class="prev-next-title">Welcome to the GeoSMART Jupyter Book!</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="motivation.html" title="next page">
