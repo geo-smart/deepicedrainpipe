@@ -36,7 +36,7 @@
 # The Ice, Cloud, and land Elevation Satellite-2 ([ICESat-2](https://www.nasa.gov/content/goddard/about-icesat-2)) was launched in 2018.
 # The Advanced Topographic Laser Altimeter System, or ATLAS, is the only instrument on board.
 # ATLAS has a single green laser that is split into six beams, arranged in three pairs.
-# The 10,000 laser pulses emited each second reach the earth and reflect off the surface before returning to the satellite,
+# The 10,000 laser pulses emitted each second reach the earth and reflect off the surface before returning to the satellite,
 # where their travel time is recorded and ultimately used (in combination with information about the satellite's location)
 # used to determine the height of the surface they reflected off of.
 #
@@ -112,7 +112,7 @@ print(gran_ids)
 # NOTE: currently ATL11 s3ID generation isn't implemented. This is currently being implemented in icepyx.
 
 # %%
-# Authenicate using your NASA Earth Data login credentials; enter your user id and password when prompted
+# Authenticate using your NASA Earth Data login credentials; enter your user id and password when prompted
 region.earthdata_login(s3token=True)
 
 # %%
@@ -128,7 +128,8 @@ fs_s3 = earthaccess.get_s3fs_session(daac='NSIDC', provider=region._s3login_cred
 # We'll read it using [`xarray.open_dataset`](https://docs.xarray.dev/en/v2022.11.0/generated/xarray.open_dataset.html).
 
 # %%
-s3_url = gran_ids[1][3]
+# s3_url = gran_ids[1][3]
+s3_url = 's3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5'
 
 with fs_s3.open(path=s3_url) as h5file:
     ds = xr.open_dataset(h5file, engine="h5netcdf")
