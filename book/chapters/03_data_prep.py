@@ -74,6 +74,8 @@ xr.show_versions()
 # %% [markdown]
 # ## Cloud access to ICESat-2 ATL11 files
 #
+# In this book we use [icepyx](https://icepyx.readthedocs.io/en/latest/) for gathering the necessary s3 urls to access ICESat-2 data in the cloud.
+# icepyx can also be used (with nearly identical syntax) to download data to your local machine.
 # For more details on accessing ICESat-2 data in the cloud, please check out the references below!
 #
 # References:
@@ -91,7 +93,7 @@ xr.show_versions()
 # and learn more about NASA authentication and managing your credentials [via Earthaccess](https://nsidc.github.io/earthaccess/) and 
 # [here](https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-for-nasa-earthdata).
 #
-# By obtaining your s3 urls via [icepyx](https://icepyx.readthedocs.io/en/latest/), you are also able to authenticate for cloud data access (note: Earthaccess is used under the hood to do this).
+# By obtaining your s3 urls via icepyx, you are also able to authenticate for cloud data access (note: Earthaccess is used under the hood to do this).
 # %%
 # First we must let icepyx know where (and when) we would like data from.
 
@@ -124,7 +126,7 @@ fs_s3 = earthaccess.get_s3fs_session(daac='NSIDC', provider=region._s3login_cred
 #
 # Let's read a single ICESat-2 ATL11 HDF5 file into an `xarray` data structure!
 # 
-# Let's first take a quick look at an example of an ATL11 HDF5 file.
+# First we'll take a quick look at an example of an ATL11 HDF5 file.
 # We'll read it using [`xarray.open_dataset`](https://docs.xarray.dev/en/v2022.11.0/generated/xarray.open_dataset.html).
 
 # %%
