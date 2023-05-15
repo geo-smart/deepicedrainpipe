@@ -14,10 +14,10 @@
 # ---
 
 # %% [markdown]
-# # Pre-processing ICESat-2/ATL11 Land Ice Height time-series
+# # Accessing ICESat-2/ATL11 Land Ice Height time-series
 #
 # In this tutorial, we'll step through a data pipeline on turning point cloud
-# time-series data from the ICESat-2 laser alimeter into an analysis ready
+# time-series data from the ICESat-2 laser altimeter into an analysis ready
 # format. By the end of this lesson, you should be able to:
 #
 # - Access ICESat-2 data in a Hierarchical Data Format (HDF5) from the cloud
@@ -31,12 +31,35 @@
 # - https://github.com/weiji14/deepicedrain/blob/v0.4.2/atl11_play.ipynb
 
 # %% [markdown]
+# ## About ICESat-2
+#
+# The Ice, Cloud, and land Elevation Satellite-2 ([ICESat-2](https://www.nasa.gov/content/goddard/about-icesat-2)) was launched in 2018.
+# The Advanced Topographic Laser Altimeter System, or ATLAS, is the only instrument on board.
+# ATLAS has a single green laser that is split into six beams, arranged in three pairs.
+# The 10,000 laser pulses emited each second reach the earth and reflect off the surface before returning to the satellite,
+# where their travel time is recorded and ultimately used (in combination with information about the satellite's location)
+# used to determine the height of the surface they reflected off of.
+#
+# ### Data Products
+#
+# The photon travel times collected by ATLAS are ultimately processed into a series of [ICESat-2 data products](https://nsidc.org/data/icesat-2/products).
+# The data products are produced with multiple levels of processing, from geolocated photons (ATL03) to gridded time series (e.g. ATL11).
+# For this analysis, we use one of the highest level (3B) products: ATL11 Slope-Corrected Land Ice Height Time Series product {cite:p}`ATL11.003`.
+#
+# ### Data Access
+#
+# ICESat-2 data access is available from NSIDC through several mechanisms, including for local download and in the cloud.
+# A compilation of resources for accessing and working with ICESat-2 data is available in [this resource guide](https://icepyx.readthedocs.io/en/latest/community/resources.html)
+# and through the [NSIDC website](https://nsidc.org/data/icesat-2/tools).
+# Here we will access data in the cloud by getting the appropriate s3urls using [icepyx](https://icepyx.readthedocs.io/en/latest/), a Python software library and community of ICESat-2 data users, developers, and data managers.
+# %% [markdown]
 # ## Getting started
 #
 # These are the tools you’ll need.
 
 # %%
 import datatree
+import icepyx
 import s3fs
 import xarray as xr
 
@@ -51,45 +74,58 @@ xr.show_versions()
 # %% [markdown]
 # ## Cloud access to ICESat-2 ATL11 files
 #
-# Let's read a single ICESat-2 ATL11 HDF5 file into an `xarray` data structure!
+# For more details on accessing ICESat-2 data in the cloud, please check out the references below!
 #
 # References:
-# - https://nasa-openscapes.github.io/earthdata-cloud-cookbook/how-tos/access/Earthdata_Cloud__Single_File__Direct_S3_Access_NetCDF4_Example.html
+# - https://github.com/icesat2py/icepyx/blob/development/doc/source/example_notebooks/IS2_cloud_data_access.ipynb
+# - https://nsidc.github.io/earthaccess/tutorials/demo/
 # - https://nasa-openscapes.github.io/earthdata-cloud-cookbook/examples/NSIDC/ICESat2-CMR-AWS-S3.html#data-access-using-aws-s3
 # - https://nsidc.org/data/user-resources/help-center/nasa-earthdata-cloud-data-access-guide
+# - https://book.cryointhecloud.com/tutorials/IS2_ATL15_surface_height_anomalies/IS2_ATL15_surface_height_anomalies.html
 
 # %% [markdown]
-# ### Providing token credentials
+# ### Providing credentials
 #
-# Accessing the cloud data requires you to set some authentication tokens.
-# Get it from from https://data.nsidc.earthdatacloud.nasa.gov/s3credentials.
-# There should be three keys:
+# Accessing NASA data requires you to have an Earthdata Login.
+# You can sign up for one free at https://data.nsidc.earthdatacloud.nasa.gov/
+# and learn more about NASA authentication and managing your credentials [via Earthaccess](https://nsidc.github.io/earthaccess/) and 
+# [here](https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-for-nasa-earthdata).
 #
-# - accessKeyId (20 characters)
-# - secretAccessKey (40 characters)
-# - sessionToken (408 characters)
-#
-# Note that an Earthdata login will be required.
-# See https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-for-nasa-earthdata
+# By obtaining your s3 urls via [icepyx](https://icepyx.readthedocs.io/en/latest/), you are also able to authenticate for cloud data access (note: Earthaccess is used under the hood to do this).
+# %%
+# First we must let icepyx know where (and when) we would like data from.
+
+short_name = 'ATL11'  # The data product we would like to query
+spatial_extent = [-85.0511287, -60.0, -180.0, 180.0] # bounding box for Antarctica
+date_range = ['2018-09-15','2023-05-15'] # entire satellite record
+# %%
+# Setup the Query object
+region = ipx.Query(short_name, spatial_extent, date_range)
+# %%
+# Get the granule IDs and cloud access urls (note that due to some missing ICESat-2 product metadata, icepyx is still working to provide s3 urls for some products)
+gran_ids = region.avail_granules(ids=True, cloud=True)
+print(gran_ids)
 
 # %%
-fs_s3 = s3fs.S3FileSystem(
-    anon=False,
-    key="ABCDEFGHIJKLMNOPQRST",
-    secret="MnOpQrStUvWxYz1a2B3c4D5e6f7G8h9IjKlMnOpQ",
-    token="jflpqw0eTngyEVuUL1ExugH4jxibaWJlYYdXvAHKpwKaEMsHmIj2bLScunmonY0R3QpU5DiEy2ScHNBCPmYZExM8sP2CknZa2BKtwpYMhycVRMGFlxCbkmUblvxluQZwKtvwyVNlA9jeqsAp2vEbdKZAZtU9HZwgf8JyjVNaVc4KPsi8L15yDqEj6TYRJ3dfKQwCPsNDyw2uCutMD1H0Rg4BkTOFX0lC7U2QrzRx4gZoPtyL2eVqlN2fWfiqzG09oMOaQGYSY2LUe4LUNMkboWz47oMRqHAHyFj84fvH0xw2GLZImVcWpSYyWRSbZPTNDpHkPrzrKNLAxKqR2gstVEgBACMbACIzhRVQUPrQLFlrjEyDQZioserdF3shlS30j3rQfGmu2ed4ZWQO7W7Qe5Fw",
-)
+# Authenicate using your NASA Earth Data login credentials; enter your user id and password when prompted
+region.earthdata_login(s3token=True)
+
+# %%
+# set up our s3 file system using our credentials
+fs_s3 = earthaccess.get_s3fs_session(daac='NSIDC', provider=region._s3login_credentials)
 
 # %% [markdown]
 # ## Loading into xarray
 #
+# Let's read a single ICESat-2 ATL11 HDF5 file into an `xarray` data structure!
+# 
 # Let's first take a quick look at an example of an ATL11 HDF5 file.
 # We'll read it using [`xarray.open_dataset`](https://docs.xarray.dev/en/v2022.11.0/generated/xarray.open_dataset.html).
 
 # %%
-with fs_s3.open(
-    path="s3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5"
-) as h5file:
+s3_url = gran_ids[1][3]
+
+with fs_s3.open(path=s3_url) as h5file:
     ds = xr.open_dataset(h5file, engine="h5netcdf")
 ds
 
@@ -105,9 +141,7 @@ ds
 # - https://medium.com/pangeo/easy-ipcc-part-1-multi-model-datatree-469b87cf9114
 
 # %%
-with fs_s3.open(
-    path="s3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5"
-) as h5file:
+with fs_s3.open(path=s3_url) as h5file:
     pair_track_dict = {}
     for pair_track in ["pt1", "pt2", "pt3"]:
         h5file.seek(0)  # https://github.com/pydata/xarray/pull/7304
