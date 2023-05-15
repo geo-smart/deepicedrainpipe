@@ -23,7 +23,7 @@ parts:
 - caption: Chapter Three
   chapters:
     - title: Data Preparation
-      file: chapters/03_prep_land_ice_height_time-series
+      file: chapters/03_data_prep
 
 - caption: Chapter Four
   chapters:
