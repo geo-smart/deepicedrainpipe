@@ -111,8 +111,6 @@ region.visualize_spatial_extent()
 gran_ids = region.avail_granules(ids=True, cloud=True)
 print(gran_ids)
 
-# NOTE: currently ATL11 s3ID generation isn't implemented. This is currently being implemented in icepyx.
-
 # %%
 # Authenticate using your NASA Earth Data login credentials; enter your user id and password when prompted
 region.earthdata_login(s3token=True)
@@ -130,8 +128,8 @@ fs_s3 = earthaccess.get_s3fs_session(daac='NSIDC', provider=region._s3login_cred
 # We'll read it using [`xarray.open_dataset`](https://docs.xarray.dev/en/v2022.11.0/generated/xarray.open_dataset.html).
 
 # %%
-# s3_url = gran_ids[1][3]
-s3_url = 's3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5'
+s3_url = gran_ids[1][3]
+# s3_url = 's3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5'
 
 with fs_s3.open(path=s3_url) as h5file:
     ds = xr.open_dataset(h5file, engine="h5netcdf")
