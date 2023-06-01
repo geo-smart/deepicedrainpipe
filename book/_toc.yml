@@ -22,7 +22,8 @@ parts:
 
 - caption: Chapter Three
   chapters:
-    - file: chapters/data
+    - title: Data Preparation
+      file: chapters/03_data_prep
 
 - caption: Chapter Four
   chapters:

@@ -10,4 +10,4 @@ dependencies:
   - pyarrow=9.0.0
   - python=3.9
   - s3fs=2022.11.0
-  - xarray-datatree=0.0.9
+  - xarray-datatree=0.0.11
