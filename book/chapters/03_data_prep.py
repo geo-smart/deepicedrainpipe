@@ -6,14 +6,14 @@
 #       extension: .py
 #       format_name: percent
 #       format_version: '1.3'
-#       jupytext_version: 1.14.0
+#       jupytext_version: 1.14.1
 #   kernelspec:
 #     display_name: Python 3 (ipykernel)
 #     language: python
 #     name: python3
 # ---
 
-# %% [markdown]
+# %% [markdown] tags=[] user_expressions=[]
 # # Accessing ICESat-2/ATL11 Land Ice Height time-series
 #
 # In this tutorial, we'll step through a data pipeline on turning point cloud
@@ -63,7 +63,7 @@ import earthaccess
 import icepyx as ipx
 import xarray as xr
 
-# %% [markdown]
+# %% [markdown] user_expressions=[]
 # Just to make sure we’re on the same page,
 # let’s check that we’ve got compatible versions installed.
 
@@ -71,7 +71,7 @@ import xarray as xr
 xr.show_versions()
 
 
-# %% [markdown]
+# %% [markdown] user_expressions=[]
 # ## Cloud access to ICESat-2 ATL11 files
 #
 # In this book we use [icepyx](https://icepyx.readthedocs.io/en/latest/) for gathering the necessary s3 urls to access ICESat-2 data in the cloud.
@@ -85,21 +85,21 @@ xr.show_versions()
 # - https://nsidc.org/data/user-resources/help-center/nasa-earthdata-cloud-data-access-guide
 # - https://book.cryointhecloud.com/tutorials/IS2_ATL15_surface_height_anomalies/IS2_ATL15_surface_height_anomalies.html
 
-# %% [markdown]
+# %% [markdown] user_expressions=[]
 # ### Providing credentials
 #
 # Accessing NASA data requires you to have an Earthdata Login.
 # You can sign up for one free at https://data.nsidc.earthdatacloud.nasa.gov/
-# and learn more about NASA authentication and managing your credentials [via Earthaccess](https://nsidc.github.io/earthaccess/) and 
+# and learn more about NASA authentication and managing your credentials [via Earthaccess](https://nsidc.github.io/earthaccess/) and
 # [here](https://nasa-openscapes.github.io/2021-Cloud-Hackathon/tutorials/04_NASA_Earthdata_Authentication.html#authentication-for-nasa-earthdata).
 #
 # By obtaining your s3 urls via icepyx, you are also able to authenticate for cloud data access (note: Earthaccess is used under the hood to do this).
 # %%
 # First we must let icepyx know where (and when) we would like data from.
 
-short_name = 'ATL11'  # The data product we would like to query
-spatial_extent = [-180.0, -85.0, 180.0, -60.0] # bounding box for Antarctica
-date_range = ['2018-09-15','2023-05-15'] # entire satellite record
+short_name = "ATL11"  # The data product we would like to query
+spatial_extent = [-180.0, -85.0, 180.0, -60.0]  # bounding box for Antarctica
+date_range = ["2018-09-15", "2023-05-31"]  # entire satellite record
 # %%
 # Setup the Query object
 region = ipx.Query(short_name, spatial_extent, date_range)
@@ -109,7 +109,8 @@ region.visualize_spatial_extent()
 # %%
 # Get the granule IDs and cloud access urls (note that due to some missing ICESat-2 product metadata, icepyx is still working to provide s3 urls for some products)
 gran_ids = region.avail_granules(ids=True, cloud=True)
-print(gran_ids)
+print(len(gran_ids[0]))
+print(gran_ids[0][:10])
 
 # %%
 # Authenticate using your NASA Earth Data login credentials; enter your user id and password when prompted
@@ -117,19 +118,19 @@ region.earthdata_login(s3token=True)
 
 # %%
 # set up our s3 file system using our credentials
-fs_s3 = earthaccess.get_s3fs_session(daac='NSIDC', provider=region._s3login_credentials)
+fs_s3 = earthaccess.get_s3fs_session(daac="NSIDC", provider=region._s3login_credentials)
 
-# %% [markdown]
+# %% [markdown] user_expressions=[]
 # ## Loading into xarray
 #
 # Let's read a single ICESat-2 ATL11 HDF5 file into an `xarray` data structure!
-# 
+#
 # First we'll take a quick look at an example of an ATL11 HDF5 file.
 # We'll read it using [`xarray.open_dataset`](https://docs.xarray.dev/en/v2022.11.0/generated/xarray.open_dataset.html).
 
 # %%
-s3_url = gran_ids[1][3]
-# s3_url = 's3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5'
+# s3_url = gran_ids[0][3]
+s3_url = "s3://nsidc-cumulus-prod-protected/ATLAS/ATL11/005/2019/09/30/ATL11_005411_0315_005_03.h5"
 
 with fs_s3.open(path=s3_url) as h5file:
     ds = xr.open_dataset(h5file, engine="h5netcdf")
@@ -146,11 +147,11 @@ ds
 # References:
 # - https://medium.com/pangeo/easy-ipcc-part-1-multi-model-datatree-469b87cf9114
 
+
 # %%
 with fs_s3.open(path=s3_url) as h5file:
     pair_track_dict = {}
     for pair_track in ["pt1", "pt2", "pt3"]:
-        h5file.seek(0)  # https://github.com/pydata/xarray/pull/7304
         pair_track_dict[pair_track] = xr.open_dataset(
             filename_or_obj=h5file, engine="h5netcdf", group=pair_track
         )
